@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Route exact path="/" component={ PrimeiraTela } />
+        <button />
       </BrowserRouter>
     </div>
   );
