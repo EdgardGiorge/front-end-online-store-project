@@ -9,9 +9,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Route exact path="/" component={ PrimeiraTela } />
-        <Route path="/Cart" component={ Cart }/>
+        <Route path="/Cart" component={ Cart } />
         <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
-        
+
       </BrowserRouter>
     </div>
   );
