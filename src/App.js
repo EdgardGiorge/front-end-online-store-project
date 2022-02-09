@@ -7,6 +7,10 @@ import Categorias from './components/Categorias';
 import ProductsContainer from './components/ProductsContainer';
 
 class App extends React.Component {
+  state = {
+    catFilter: '',
+  }
+
   onCatBtnClick = (e) => {
     const { name } = e.target;
     this.setState({
@@ -23,7 +27,7 @@ class App extends React.Component {
           <Route path="/Cart" component={ Cart } />
           <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
         </BrowserRouter>
-        <Categorias />
+        <Categorias onCatBtnClick={ this.onCatBtnClick } />
         <ProductsContainer catFilter={ catFilter } />
       </div>
     );

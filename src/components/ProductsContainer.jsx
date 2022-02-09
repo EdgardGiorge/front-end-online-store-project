@@ -1,18 +1,22 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class ProductsContainer extends React.Component {
-  componentDidMount() {
-    this.fetchProducts(
-    );
-  }
+    state = {
+      products: [],
+    }
+
+    componentDidMount() {
+      this.fetchProducts(
+      );
+    }
 
     fetchProducts = async () => {
       const categoryId = this.props;
-      const response = await getProductsFromCategoryAndQuery(categoryId, query);
+      const response = await getProductsFromCategoryAndQuery(categoryId);
+      const { results } = response;
       this.setState({
-        products: response,
+        products: results,
       });
     };
 
