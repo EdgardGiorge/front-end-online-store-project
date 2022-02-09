@@ -4,18 +4,29 @@ import './App.css';
 import PrimeiraTela from './components/PrimeiraTela';
 import Cart from './components/Cart';
 import Categorias from './components/Categorias';
+import ProductsContainer from './components/ProductsContainer';
 
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Route exact path="/" component={ PrimeiraTela } />
-        <Route path="/Cart" component={ Cart } />
-        <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
-      </BrowserRouter>
-      <Categorias />
-    </div>
-  );
+class App extends React.Component {
+  onCatBtnClick = (e) => {
+    const { name } = e.target;
+    this.setState({
+      catFilter: name,
+    });
+  };
+
+  render() {
+    const { catFilter } = this.state;
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Route exact path="/" component={ PrimeiraTela } />
+          <Route path="/Cart" component={ Cart } />
+          <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
+        </BrowserRouter>
+        <Categorias />
+        <ProductsContainer catFilter={ catFilter } />
+      </div>
+    );
+  }
 }
-
 export default App;

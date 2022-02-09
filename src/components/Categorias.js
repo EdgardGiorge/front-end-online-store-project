@@ -24,6 +24,7 @@ class Categorias extends React.Component {
             <button
               type="button"
               data-testid="category"
+              name={ getCat.id }
               key={ getCat.id }
             >
               {getCat.name}
