@@ -13,10 +13,6 @@ class App extends React.Component {
     products: [],
   }
 
-  /*  componentDidMount() {
-    this.fetchProducts();
-  } */
-
   onCatBtnClick = (catFilter) => {
     this.fetchProducts(catFilter);
   };
