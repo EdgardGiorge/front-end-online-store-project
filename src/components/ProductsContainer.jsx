@@ -7,15 +7,12 @@ class ProductsContainer extends React.Component {
     const { products, handleLinkClick } = this.props;
     return (
       <div>
-        {products.map((product, index) => (
+        {products.map((product) => (
           <div data-testid="product" key={ product.id }>
             <span>{product.title}</span>
             <span>{product.price}</span>
             <img src={ product.thumbnail } alt="" />
-            <BrowserRouter>
-              <Link onClick={ () => handleLinkClick(index) } to="/Productdetails">Detalhar</Link>
-            </BrowserRouter>
-
+            <Link data-testid="product-detail-link" to={ `/Productdetails/${product.id}` }>Detalhar</Link>
           </div>
         ))}
       </div>
