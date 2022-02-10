@@ -18,17 +18,19 @@ class ProductDetails extends React.Component {
   render() {
     const { product: { title, price, thumbnail, attributes } } = this.state;
     return (
-      <div className="teste">
-        <span data-testid="product-detail-name">{title}</span>
+      <div>
+        <h2 data-testid="product-detail-name">{title}</h2>
         <img src={ thumbnail } alt="" />
         <p>{`R$ ${price}`}</p>
         <table>
           {
             attributes.map(({ name, value_name: valueName, id }) => (
-              <h3 key={ id }>
-                <p>{name}</p>
-                <p>{valueName}</p>
-              </h3>
+              <thead key={ id }>
+                <tr>
+                  <th>{name}</th>
+                  <th>{valueName}</th>
+                </tr>
+              </thead>
             ))
           }
         </table>
