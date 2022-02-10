@@ -3,27 +3,36 @@ import PropTypes from 'prop-types';
 import { getProductsFromId } from '../services/api';
 
 class ProductDetails extends React.Component {
-  state= {
-    productInfo: {},
+  state = {
+    product: {
+      attributes: [],
+    },
   }
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const product = await getProductsFromId(id);
-    this.setState({
-      productInfo: product,
-    });
+    this.setState({ product });
   }
 
   render() {
-    const { productInfo } = this.state;
-    console.log(productInfo);
+    const { product: { title, price, thumbnail, attributes } } = this.state;
     return (
       <div className="teste">
-        <span data-testid="product-detail-name">{productInfo.title}</span>
-        <span>{productInfo.id}</span>
-        <span>{productInfo.price}</span>
-        <img src={ productInfo.thumbnail } alt="" />
+        <span data-testid="product-detail-name">{title}</span>
+        <img src={ thumbnail } alt="" />
+        <p>{`R$ ${price}`}</p>
+        <table>
+          {
+            attributes.map(({ name, value_name: valueName, id }) => (
+              <h3 key={ id }>
+                <p>{name}</p>
+                <p>{valueName}</p>
+              </h3>
+            ))
+          }
+        </table>
+
       </div>
     );
   }
