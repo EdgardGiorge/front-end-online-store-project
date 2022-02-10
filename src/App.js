@@ -13,13 +13,12 @@ class App extends React.Component {
     products: [],
   }
 
-  componentDidMount() {
+  /*  componentDidMount() {
     this.fetchProducts();
-  }
+  } */
 
-  onCatBtnClick = (e) => {
-    const { name } = e.target;
-    this.fetchProducts(name);
+  onCatBtnClick = (catFilter) => {
+    this.fetchProducts(catFilter);
   };
 
   onQueryBtnClick = (query) => {
