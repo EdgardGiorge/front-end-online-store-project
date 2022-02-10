@@ -5,21 +5,37 @@ import PrimeiraTela from './components/PrimeiraTela';
 import Cart from './components/Cart';
 import Categorias from './components/Categorias';
 import ProductsContainer from './components/ProductsContainer';
+import { getProductsFromCategoryAndQuery } from './services/api';
+import TextFilter from './components/TextFilter';
 
 class App extends React.Component {
-  state = {
-    catFilter: '',
+  state= {
+    products: [],
+  }
+
+  componentDidMount() {
+    this.fetchProducts();
   }
 
   onCatBtnClick = (e) => {
     const { name } = e.target;
+    this.fetchProducts(name);
+  };
+
+  onQueryBtnClick = (query) => {
+    this.fetchProducts(undefined, query);
+  }
+
+  fetchProducts = async (catFilter, queryFilter) => {
+    const resposta = await getProductsFromCategoryAndQuery(catFilter, queryFilter);
+    const { results } = await resposta;
     this.setState({
-      catFilter: name,
+      products: results,
     });
   };
 
   render() {
-    const { catFilter } = this.state;
+    const { products } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -28,7 +44,8 @@ class App extends React.Component {
           <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
         </BrowserRouter>
         <Categorias onCatBtnClick={ this.onCatBtnClick } />
-        <ProductsContainer catFilter={ catFilter } />
+        <TextFilter onQueryBtnClick={ this.onQueryBtnClick } />
+        <ProductsContainer products={ products } />
       </div>
     );
   }
