@@ -27,7 +27,7 @@ class Categorias extends React.Component {
               data-testid="category"
               name={ getCat.id }
               key={ getCat.id }
-              onClick={ onCatBtnClick }
+              onClick={ () => onCatBtnClick(getCat.id) }
             >
               {getCat.name}
             </button>
