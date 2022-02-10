@@ -8,6 +8,12 @@ import TextFilter from './TextFilter';
 class PrimeiraTela extends React.Component {
   state= {
     products: [],
+    cart: [],
+  }
+
+  addCart = (newProduct) => {
+    this.setState(({ cart: previousList }) => (
+      { cart: [...previousList, newProduct] }));
   }
 
   onCatBtnClick = (catFilter) => {
@@ -27,7 +33,7 @@ class PrimeiraTela extends React.Component {
   };
 
   render() {
-    const { products } = this.state;
+    const { products, addCart } = this.state;
     return (
       <h1 data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
@@ -37,7 +43,9 @@ class PrimeiraTela extends React.Component {
           <TextFilter onQueryBtnClick={ this.onQueryBtnClick } />
           <ProductsContainer
             products={ products }
+            addCart={ addCart }
           />
+          {/* <Cart> */}
         </div>
       </h1>
     );
