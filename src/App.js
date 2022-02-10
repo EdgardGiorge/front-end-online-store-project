@@ -36,6 +36,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Route exact path="/" component={ PrimeiraTela } />
           <Route path="/Cart" component={ Cart } />
+          <Route path="/productdetails" component={}
           <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
         </BrowserRouter>
         <Categorias onCatBtnClick={ this.onCatBtnClick } />
