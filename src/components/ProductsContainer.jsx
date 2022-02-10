@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { Route, BrowserRouter, Link, Switch } from 'react-router-dom';
 
 class ProductsContainer extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, handleLinkClick } = this.props;
     return (
       <div>
-        {products.map((product) => (
+        {products.map((product, index) => (
           <div data-testid="product" key={ product.id }>
             <span>{product.title}</span>
             <span>{product.price}</span>
             <img src={ product.thumbnail } alt="" />
             <BrowserRouter>
-              <Link to="/productdetails">Detalhar</Link>
+              <Link onClick={ () => handleLinkClick(index) } to="/Productdetails">Detalhar</Link>
             </BrowserRouter>
+
           </div>
         ))}
       </div>
