@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductsContainer extends React.Component {
   render() {
@@ -11,6 +12,13 @@ class ProductsContainer extends React.Component {
             <span>{product.title}</span>
             <span>{product.price}</span>
             <img src={ product.thumbnail } alt="" />
+            <Link
+              data-testid="product-detail-link"
+              to={ `/Productdetails/${product.id}` }
+            >
+              Detalhar
+
+            </Link>
           </div>
         ))}
       </div>
