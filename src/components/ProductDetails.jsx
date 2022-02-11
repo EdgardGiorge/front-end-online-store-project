@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProductsFromId } from '../services/api';
+import { Link } from 'react-router-dom';
+import { getProductsFromId, addProduct } from '../services/api';
 
 class ProductDetails extends React.Component {
   state = {
@@ -16,12 +17,22 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { product: { title, price, thumbnail, attributes } } = this.state;
+    const { product } = this.state;
+    const { title, price, thumbnail, attributes } = product;
     return (
       <div>
         <h2 data-testid="product-detail-name">{title}</h2>
         <img src={ thumbnail } alt="" />
         <p>{`R$ ${price}`}</p>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => addProduct(product) }
+        >
+          Adicionar ao carrinho de Compras
+        </button>
+        <Link to="/Cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
+        <Link to="/">Voltar</Link>
         <table>
           {
             attributes.map(({ name, value_name: valueName, id }) => (
