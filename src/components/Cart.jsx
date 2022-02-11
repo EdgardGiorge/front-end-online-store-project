@@ -15,6 +15,21 @@ class Cart extends Component {
     // }
   }
 
+  handleBtnClick = (operator, product) => {
+    const { newProducts } = this.state;
+    const spreadProd = [...newProducts];
+    const indexToDrop = newProducts.findIndex((prod) => prod.id === product.id);
+    if (operator === '+') {
+      product.quantity += 1;
+    } else {
+      product.quantity -= 1;
+    }
+    spreadProd[indexToDrop] = product;
+    this.setState({
+      newProducts: [...spreadProd],
+    });
+  }
+
   render() {
     const { newProducts } = this.state;
     return (
@@ -23,16 +38,30 @@ class Cart extends Component {
           newProducts.length === 0
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
-              newProducts.map(({ title, thumbnail, price, id, quantity }) => (
-                <div key={ id }>
-                  <p data-testid="shopping-cart-product-name">{title}</p>
-                  <img src={ thumbnail } alt={ title } />
+              newProducts.map((product) => (
+                <div key={ product.id }>
+                  <p data-testid="shopping-cart-product-name">{product.title}</p>
+                  <img src={ product.thumbnail } alt={ product.title } />
                   <p>
                     R$
                     {' '}
-                    {price}
+                    {product.price}
                   </p>
-                  <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+                  <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
+                  <button
+                    type="button"
+                    data-testid="product-decrease-quantity"
+                    onClick={ () => this.handleBtnClick('-', product) }
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    onClick={ () => this.handleBtnClick('+', product) }
+                  >
+                    +
+                  </button>
                 </div>
               ))
             )
