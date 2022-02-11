@@ -28,13 +28,18 @@ class PrimeiraTela extends React.Component {
   }
 
   addCart = (newProduct) => {
-    const { cart } = this.state;
-    const isRepeated = this.checkRepeated(cart, newProduct);
-    if (!isRepeated) {
-      newProduct.quantity = 1;
-      this.setState(({ cart: previousList }) => (
-        { cart: [...previousList, newProduct] }));
+    if (!localStorage.bycart) {
+      localStorage.setItem('bycart', JSON.stringify([]));
     }
+    const bycart = JSON.parse(localStorage.getItem('bycart'));
+    localStorage.setItem('bycart', JSON.stringify([...bycart, newProduct]));
+    // const { cart } = this.state;
+    // const isRepeated = this.checkRepeated(cart, newProduct);
+    // if (!isRepeated) {
+    //   newProduct.quantity = 1;
+    //   this.setState(({ cart: previousList }) => (
+    //     { cart: [...previousList, newProduct] }));
+    // }
   }
 
   onCatBtnClick = (catFilter) => {
