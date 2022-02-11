@@ -19,7 +19,13 @@ class ProductsContainer extends React.Component {
               Detalhar
 
             </Link>
-            <button type="button" onClick={ () => addCart(product) }>Adicionar</button>
+            <button
+              data-testid="product-add-to-cart"
+              type="button"
+              onClick={ () => addCart(product) }
+            >
+              Adicionar
+            </button>
           </div>
         ))}
       </div>
