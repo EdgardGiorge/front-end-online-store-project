@@ -8,6 +8,38 @@ import TextFilter from './TextFilter';
 class PrimeiraTela extends React.Component {
   state= {
     products: [],
+    cart: [],
+  }
+
+  checkRepeated = (cart, newProduct) => {
+    let found = false;
+    cart.forEach((item, index) => {
+      if (item.title === newProduct.title) {
+        item.quantity += 1;
+        const newCart = cart;
+        newCart[index] = item;
+        this.setState({
+          cart: newCart,
+        });
+        found = true;
+      }
+    });
+    return found;
+  }
+
+  addCart = (newProduct) => {
+    if (!localStorage.bycart) {
+      localStorage.setItem('bycart', JSON.stringify([]));
+    }
+    const bycart = JSON.parse(localStorage.getItem('bycart'));
+    localStorage.setItem('bycart', JSON.stringify([...bycart, newProduct]));
+    // const { cart } = this.state;
+    // const isRepeated = this.checkRepeated(cart, newProduct);
+    // if (!isRepeated) {
+    //   newProduct.quantity = 1;
+    //   this.setState(({ cart: previousList }) => (
+    //     { cart: [...previousList, newProduct] }));
+    // }
   }
 
   onCatBtnClick = (catFilter) => {
@@ -27,17 +59,24 @@ class PrimeiraTela extends React.Component {
   };
 
   render() {
-    const { products } = this.state;
+    const { products, cart } = this.state;
     return (
       <h1 data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
-        <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <Link
+          to={ { pathname: '/Cart', state: { cart } } }
+          data-testid="shopping-cart-button"
+        >
+          Carrinho
+        </Link>
         <div>
           <Categorias onCatBtnClick={ this.onCatBtnClick } />
           <TextFilter onQueryBtnClick={ this.onQueryBtnClick } />
           <ProductsContainer
             products={ products }
+            addCart={ this.addCart }
           />
+          {/* <Cart> */}
         </div>
       </h1>
     );
