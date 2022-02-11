@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { getProductsFromId, addProduct } from '../services/api';
 
@@ -32,9 +31,8 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao carrinho de Compras
         </button>
-        <Link to="/Cart" data-testid="shopping-cart-button">
-          { /* <AiOutlineShoppingCart /> */ }
-        </Link>
+        <Link to="/Cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
+        <Link to="/">Voltar</Link>
         <table>
           {
             attributes.map(({ name, value_name: valueName, id }) => (
