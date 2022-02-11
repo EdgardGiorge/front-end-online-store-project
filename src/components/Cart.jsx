@@ -15,6 +15,27 @@ class Cart extends Component {
     // }
   }
 
+  handleBtnClick = (e, currProdId) => {
+    const { newProducts } = this.state;
+    let indexToDrop;
+    const currentProduct = newProducts.find(({ id }, index) => {
+      if (id === currProdId) {
+        indexToDrop = index;
+        return true;
+      }
+      return false;
+    });
+    if (e.target.innerText === '+') {
+      currentProduct.quantity += 1;
+    } else {
+      currentProduct.quantity -= 1;
+    }
+    newProducts[indexToDrop] = currentProduct;
+    this.setState({
+      newProducts,
+    });
+  }
+
   render() {
     const { newProducts } = this.state;
     return (
@@ -33,6 +54,20 @@ class Cart extends Component {
                     {price}
                   </p>
                   <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+                  <button
+                    type="button"
+                    data-testid="product-decrease-quantity"
+                    onClick={ (e) => this.handleBtnClick(e, id) }
+                  >
+                    -
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    onClick={ (e) => this.handleBtnClick(e, id) }
+                  >
+                    +
+                  </button>
                 </div>
               ))
             )

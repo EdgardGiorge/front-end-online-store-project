@@ -30,12 +30,9 @@ export function productsByQuanty() {
     if (acc.some(({ id }) => id === prod.id)) return acc;
 
     const products = array.filter(({ id }) => id === prod.id);
-
     const prodQuantity = products[0];
     prodQuantity.quantity = products.length;
-
     acc.push(prodQuantity);
-
     return acc;
   }, []);
 }
