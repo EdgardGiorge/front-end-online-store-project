@@ -15,24 +15,18 @@ class Cart extends Component {
     // }
   }
 
-  handleBtnClick = (e, currProdId) => {
+  handleBtnClick = (operator, product) => {
     const { newProducts } = this.state;
-    let indexToDrop;
-    const currentProduct = newProducts.find(({ id }, index) => {
-      if (id === currProdId) {
-        indexToDrop = index;
-        return true;
-      }
-      return false;
-    });
-    if (e.target.innerText === '+') {
-      currentProduct.quantity += 1;
+    const spreadProd = [...newProducts];
+    const indexToDrop = newProducts.findIndex((prod) => prod.id === product.id);
+    if (operator === '+') {
+      product.quantity += 1;
     } else {
-      currentProduct.quantity -= 1;
+      product.quantity -= 1;
     }
-    newProducts[indexToDrop] = currentProduct;
+    spreadProd[indexToDrop] = product;
     this.setState({
-      newProducts,
+      newProducts: [...spreadProd],
     });
   }
 
@@ -44,27 +38,27 @@ class Cart extends Component {
           newProducts.length === 0
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
-              newProducts.map(({ title, thumbnail, price, id, quantity }) => (
-                <div key={ id }>
-                  <p data-testid="shopping-cart-product-name">{title}</p>
-                  <img src={ thumbnail } alt={ title } />
+              newProducts.map((product) => (
+                <div key={ product.id }>
+                  <p data-testid="shopping-cart-product-name">{product.title}</p>
+                  <img src={ product.thumbnail } alt={ product.title } />
                   <p>
                     R$
                     {' '}
-                    {price}
+                    {product.price}
                   </p>
-                  <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+                  <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
                   <button
                     type="button"
                     data-testid="product-decrease-quantity"
-                    onClick={ (e) => this.handleBtnClick(e, id) }
+                    onClick={ () => this.handleBtnClick('-', product) }
                   >
                     -
                   </button>
                   <button
                     type="button"
                     data-testid="product-increase-quantity"
-                    onClick={ (e) => this.handleBtnClick(e, id) }
+                    onClick={ () => this.handleBtnClick('+', product) }
                   >
                     +
                   </button>
