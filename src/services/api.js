@@ -16,14 +16,14 @@ export async function getProductsFromId(id) {
   return products;
 }
 
+export const getProducts = () => JSON.parse(localStorage.getItem('bycart')) || [];
+
 export function addProduct(newProduct) {
   if (!localStorage.bycart) {
     localStorage.setItem('bycart', JSON.stringify([]));
   }
-  localStorage.setItem('bycart', JSON.stringify([...getCartProducts(), newProduct]));
+  localStorage.setItem('bycart', JSON.stringify([...getProducts(), newProduct]));
 }
-
-export const getProducts = () => JSON.parse(localStorage.getItem('bycart')) || [];
 
 export function productsByQuanty() {
   return getProducts().reduce((acc, prod, _, array) => {

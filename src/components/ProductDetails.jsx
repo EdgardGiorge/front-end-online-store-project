@@ -1,30 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+// import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { getProductsFromId, addProduct } from '../services/api';
 
 class ProductDetails extends React.Component {
-  state= {
-    productInfo: {},
+  state = {
+    product: {
+      attributes: [],
+    },
   }
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const product = await getProductsFromId(id);
-    this.setState({
-      productInfo: product,
-    });
+    this.setState({ product });
   }
 
   render() {
-    const { productInfo } = this.state;
+    const { product } = this.state;
+    const { title, price, thumbnail, attributes } = product;
     return (
-      <div className="teste">
-        <span data-testid="product-detail-name">{productInfo.title}</span>
-        <span>{productInfo.id}</span>
-        <span>{productInfo.price}</span>
-        <img src={ productInfo.thumbnail } alt="" />
+      <div>
+        <h2 data-testid="product-detail-name">{title}</h2>
+        <img src={ thumbnail } alt="" />
+        <p>{`R$ ${price}`}</p>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => addProduct(product) }
+        >
+          Adicionar ao carrinho de Compras
+        </button>
+        <Link to="/Cart" data-testid="shopping-cart-button">
+          { /* <AiOutlineShoppingCart /> */ }
+        </Link>
+        <table>
+          {
+            attributes.map(({ name, value_name: valueName, id }) => (
+              <thead key={ id }>
+                <tr>
+                  <th>{name}</th>
+                  <th>{valueName}</th>
+                </tr>
+              </thead>
+            ))
+          }
+        </table>
+
       </div>
     );
   }
