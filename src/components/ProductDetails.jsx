@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProductsFromId } from '../services/api';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { getProductsFromId, addProduct } from '../services/api';
 
 class ProductDetails extends React.Component {
   state= {
@@ -17,7 +19,6 @@ class ProductDetails extends React.Component {
 
   render() {
     const { productInfo } = this.state;
-    console.log(productInfo);
     return (
       <div className="teste">
         <span data-testid="product-detail-name">{productInfo.title}</span>

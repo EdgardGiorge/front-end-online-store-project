@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Categorias from './Categorias';
 import ProductsContainer from './ProductsContainer';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, addProduct } from '../services/api';
 import TextFilter from './TextFilter';
 
 class PrimeiraTela extends React.Component {
@@ -11,28 +11,29 @@ class PrimeiraTela extends React.Component {
     cart: [],
   }
 
-  checkRepeated = (cart, newProduct) => {
-    let found = false;
-    cart.forEach((item, index) => {
-      if (item.title === newProduct.title) {
-        item.quantity += 1;
-        const newCart = cart;
-        newCart[index] = item;
-        this.setState({
-          cart: newCart,
-        });
-        found = true;
-      }
-    });
-    return found;
-  }
+  // checkRepeated = (cart, newProduct) => {
+  //   let found = false;
+  //   cart.forEach((item, index) => {
+  //     if (item.title === newProduct.title) {
+  //       item.quantity += 1;
+  //       const newCart = cart;
+  //       newCart[index] = item;
+  //       this.setState({
+  //         cart: newCart,
+  //       });
+  //       found = true;
+  //     }
+  //   });
+  //   return found;
+  // }
 
   addCart = (newProduct) => {
-    if (!localStorage.bycart) {
-      localStorage.setItem('bycart', JSON.stringify([]));
-    }
-    const bycart = JSON.parse(localStorage.getItem('bycart'));
-    localStorage.setItem('bycart', JSON.stringify([...bycart, newProduct]));
+    addProduct(newProduct);
+    // if (!localStorage.bycart) {
+    //   localStorage.setItem('bycart', JSON.stringify([]));
+    // }
+    // const bycart = JSON.parse(localStorage.getItem('bycart'));
+    // localStorage.setItem('bycart', JSON.stringify([...bycart, newProduct]));
     // const { cart } = this.state;
     // const isRepeated = this.checkRepeated(cart, newProduct);
     // if (!isRepeated) {
