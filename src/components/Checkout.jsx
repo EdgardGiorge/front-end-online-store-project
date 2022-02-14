@@ -4,7 +4,7 @@ import { getProducts } from '../services/api';
 const initialState = {
 
   name: '',
-  CPF: '',
+  CPF: 0,
   email: '',
   phone: '',
   CEP: '',
@@ -22,14 +22,22 @@ class Checkout extends Component {
     this.state = { ...initialState };
   }
 
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
     const itens = getProducts();
     const {
       name,
-      CPF,
+      cpf,
       email,
       phone,
-      CEP,
+      cep,
       address,
       complement,
       number,
@@ -56,9 +64,10 @@ class Checkout extends Component {
           <h3>Informações do Comprador</h3>
           <label htmlFor="name-input">
             <input
-              name="cardName"
+              name="name"
               type="text"
               value={ name }
+              onChange={ this.handleChange }
               placeholder="Nome Completo"
               data-testid="checkout-fullname"
             />
@@ -68,6 +77,7 @@ class Checkout extends Component {
               name="email"
               type="text"
               value={ email }
+              onChange={ this.handleChange }
               placeholder="Email"
               data-testid="checkout-email"
             />
@@ -75,8 +85,9 @@ class Checkout extends Component {
           <label htmlFor="cpf-input">
             <input
               name="cpf"
-              type="number"
-              value={ CPF }
+              type="text"
+              value={ cpf }
+              onChange={ this.handleChange }
               placeholder="CPF"
               data-testid="checkout-cpf"
             />
@@ -84,8 +95,9 @@ class Checkout extends Component {
           <label htmlFor="phone-input">
             <input
               name="phone"
-              type="number"
+              type="text"
               value={ phone }
+              onChange={ this.handleChange }
               placeholder="Telefone"
               data-testid="checkout-phone"
             />
@@ -94,7 +106,8 @@ class Checkout extends Component {
             <input
               name="cep"
               type="text"
-              value={ CEP }
+              value={ cep }
+              onChange={ this.handleChange }
               placeholder="CEP"
               data-testid="checkout-cep"
             />
@@ -104,6 +117,7 @@ class Checkout extends Component {
               name="address"
               type="text"
               value={ address }
+              onChange={ this.handleChange }
               placeholder="Endereço"
               data-testid="checkout-address"
             />
@@ -113,6 +127,7 @@ class Checkout extends Component {
               name="complement"
               type="text"
               value={ complement }
+              onChange={ this.handleChange }
               placeholder="Complemento"
             />
           </label>
@@ -121,6 +136,7 @@ class Checkout extends Component {
               name="number"
               type="number"
               value={ number }
+              onChange={ this.handleChange }
               placeholder="Número"
             />
           </label>
@@ -129,11 +145,12 @@ class Checkout extends Component {
               name="city"
               type="text"
               value={ city }
+              onChange={ this.handleChange }
               placeholder="Cidade"
             />
           </label>
 
-          <select name="select-state" value={ state }>
+          <select name="select-state" value={ state } onChange={ this.handleChange }>
             <option value="nan">Selecionar Estado</option>
             <option value="mg">Minas Gerais</option>
             <option value="sp">São Paulo</option>
@@ -155,19 +172,43 @@ class Checkout extends Component {
           <h2>Método de Pagamento</h2>
           <label htmlFor="boleto">
             Boleto
-            <input type="radio" id="boleto" name="boleto" value="boleto" />
+            <input
+              type="radio"
+              id="boleto"
+              name="pagamento"
+              value="boleto"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="Visa">
             Visa
-            <input type="radio" id="Visa" name="Visa" value="Visa" />
+            <input
+              type="radio"
+              id="Visa"
+              name="pagamento"
+              value="Visa"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="MasterCard">
             MasterCard
-            <input type="radio" id="MasterCard" name="MasterCard" value="MasterCard" />
+            <input
+              type="radio"
+              id="MasterCard"
+              name="pagamento"
+              value="MasterCard"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="elo">
             Elo
-            <input type="radio" id="elo" name="elo" value="elo" />
+            <input
+              type="radio"
+              id="elo"
+              name="pagamento"
+              value="elo"
+              onChange={ this.handleChange }
+            />
           </label>
         </form>
         <button
