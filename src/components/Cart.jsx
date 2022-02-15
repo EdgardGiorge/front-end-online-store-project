@@ -68,7 +68,7 @@ class Cart extends Component {
             )
         }
         <Link
-          to={ { pathname: '/Checkout', state: { newProducts } } }
+          to={ { pathname: '/Checkout' } }
           data-testid="checkout-products"
         >
           Finalizar
