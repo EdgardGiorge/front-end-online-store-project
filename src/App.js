@@ -4,6 +4,7 @@ import './App.css';
 import PrimeiraTela from './components/PrimeiraTela';
 import Cart from './components/Cart';
 import ProductDetails from './components/ProductDetails';
+import Checkout from './components/Checkout';
 
 class App extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class App extends React.Component {
             <Route exact path="/Cart" component={ Cart } />
             <Route exact path="/Productdetails/:id" component={ ProductDetails } />
             <Route exact path="/" component={ PrimeiraTela } />
+            <Route exact path="/Checkout" component={ Checkout } />
           </Switch>
         </BrowserRouter>
 
